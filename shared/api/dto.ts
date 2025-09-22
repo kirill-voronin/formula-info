@@ -44,6 +44,7 @@ export interface RaceDTO {
   url: string;
   fast_lap: Partial<FastLapDTO>;
   circuit: Partial<CircuitDTO>;
+  results: Partial<RaceResultDTO>[];
   winner: string;
   teamWinner: string;
 }
@@ -53,4 +54,36 @@ export interface ChampionshipDTO {
   championshipName: string;
   url: string;
   year: number;
+}
+
+export interface DriverDTO {
+  driverId: string;
+  number: number;
+  shortName: string;
+  url: string;
+  name: string;
+  surname: string;
+  nationality: string;
+  birthday: string;
+}
+
+export interface TeamDTO {
+  teamId: string;
+  teamName: string;
+  nationality: string;
+  firstAppareance: number;
+  constructorsChampionships: number;
+  driversChampionships: number;
+  url: string;
+}
+
+export interface RaceResultDTO {
+  position: number;
+  points: number;
+  grid: number;
+  time: string;
+  fastLap: number | null;
+  retired: boolean | null;
+  driver: Partial<DriverDTO>;
+  team: Partial<TeamDTO>;
 }

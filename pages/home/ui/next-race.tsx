@@ -1,4 +1,4 @@
-import { Loading } from "@/shared/ui";
+import { Card, Loading } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React, { useEffect, useState } from "react";
@@ -59,8 +59,7 @@ export default function NextRaceCard() {
   }
 
   return (
-    <View style={styles.card}>
-      <Text style={styles.raceName}>{race?.raceName}</Text>
+    <Card title={race?.raceName}>
       <Text style={styles.location}>
         {circuit?.city}, {circuit?.country}
       </Text>
@@ -107,7 +106,7 @@ export default function NextRaceCard() {
           <Text style={styles.countdownValue}>{formatCountdown(timeLeft)}</Text>
         </View>
       )}
-    </View>
+    </Card>
   );
 }
 

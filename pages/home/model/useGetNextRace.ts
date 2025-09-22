@@ -1,7 +1,7 @@
 import { api, ChampionshipDTO, RaceDTO } from "@/shared/api";
 import { useQuery } from "@tanstack/react-query";
 
-interface NextRaceDTO {
+interface NextRaceResponse {
   api: string;
   url: string;
   total: number;
@@ -12,7 +12,7 @@ interface NextRaceDTO {
 }
 
 const useGetNextRace = () => {
-  const fetchNextRace = async (): Promise<NextRaceDTO> => {
+  const fetchNextRace = async (): Promise<NextRaceResponse> => {
     const response = await api.get("/current/next");
     return response.data;
   };
