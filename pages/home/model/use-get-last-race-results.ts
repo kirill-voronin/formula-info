@@ -24,6 +24,7 @@ const useGetLastRaceResults = () => {
 
   return {
     results: data?.races.results ?? [],
+    circuit: data?.races.circuit ?? {},
     isLoading,
     error,
   };

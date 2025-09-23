@@ -27,7 +27,7 @@ const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
 );
 
 const LastRaceResults = () => {
-  const { results, isLoading } = useGetLastRaceResults();
+  const { results, circuit, isLoading } = useGetLastRaceResults();
   const leaders = results.slice(0, 3);
 
   if (isLoading) {
@@ -40,6 +40,9 @@ const LastRaceResults = () => {
 
   return (
     <Card title="Last Race Results">
+      <Text style={styles.location}>
+        {circuit?.city}, {circuit?.country}
+      </Text>
       <FlatList data={leaders} renderItem={renderItem} />
     </Card>
   );
@@ -52,6 +55,11 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 6,
+  },
+  location: {
+    fontSize: 14,
+    color: "#555",
+    marginBottom: 12,
   },
   position: {
     fontSize: 16,
