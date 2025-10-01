@@ -1,10 +1,10 @@
-import { RaceResultDTO } from "@/shared/api";
+import { DriverChampionshipEntryDTO } from "@/shared/api";
 import { Card, Loading } from "@/shared/ui";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 import { podiumColors } from "../../../entities/driver/model/podiums-colors";
-import useGetLastRaceResults from "../model/use-get-last-race-results";
+import { useGetDriversStanding } from "../model/use-get-drivers-standing";
 
-const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
+const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
   <View style={styles.row}>
     <Text
       style={[
@@ -17,44 +17,35 @@ const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
       {item.driver?.name?.split("")[0]}. {item.driver?.surname}
     </Text>
     <Text style={styles.team}>{item.team?.teamName}</Text>
-    <Text style={styles.number}>#{item.driver?.number}</Text>
+    <Text style={styles.number}>{item.points}</Text>
   </View>
 );
 
-const LastRaceResults = () => {
-  const { results, circuit, isLoading } = useGetLastRaceResults();
-  const leaders = results.slice(0, 3);
+export const DriversStanding = () => {
+  const { driversStanding, isLoading, error } = useGetDriversStanding();
+
+  const leaders = driversStanding.slice(0, 3);
 
   if (isLoading) {
     return <Loading />;
   }
 
-  if (!results || results.length === 0) {
-    return <Text>No results found</Text>;
+  if (error) {
+    return <Text>Error: {error.message}</Text>;
   }
 
   return (
-    <Card title="Last Race Results">
-      <Text style={styles.location}>
-        {circuit?.city}, {circuit?.country}
-      </Text>
+    <Card title="Drivers Standing">
       <FlatList data={leaders} renderItem={renderItem} />
     </Card>
   );
 };
-
-export default LastRaceResults;
 
 const styles = StyleSheet.create({
   row: {
     flexDirection: "row",
     alignItems: "center",
     marginBottom: 6,
-  },
-  location: {
-    fontSize: 14,
-    color: "#555",
-    marginBottom: 12,
   },
   position: {
     fontSize: 16,

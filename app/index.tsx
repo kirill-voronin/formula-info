@@ -1,14 +1,12 @@
 import { Home } from "@/pages/home";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import { ApiProvider } from "@/shared/api";
 import { StatusBar } from "expo-status-bar";
-
-const queryClient = new QueryClient();
 
 export default function Index() {
   return (
-    <QueryClientProvider client={queryClient}>
+    <ApiProvider>
       <StatusBar style="dark" />
       <Home />
-    </QueryClientProvider>
+    </ApiProvider>
   );
 }

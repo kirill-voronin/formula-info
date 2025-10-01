@@ -87,3 +87,14 @@ export interface RaceResultDTO {
   driver: Partial<DriverDTO>;
   team: Partial<TeamDTO>;
 }
+
+export interface DriverChampionshipEntryDTO {
+  classificationId: number;
+  driverId: string;
+  teamId: string;
+  points: number;
+  position: number;
+  wins: number;
+  driver: Partial<DriverDTO>;
+  team: Partial<TeamDTO>;
+}
