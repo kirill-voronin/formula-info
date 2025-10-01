@@ -1,10 +1,10 @@
+import { useGetNextRace } from "@/entities/race";
 import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React, { useEffect, useState } from "react";
 import { StyleSheet, Text, View } from "react-native";
-import useGetNextRace from "../model/useGetNextRace";
 
 dayjs.extend(duration);
 

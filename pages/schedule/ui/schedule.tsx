@@ -1,32 +1,25 @@
+import { useNextRace } from "@/entities/race/model/store";
 import { RaceDTO } from "@/shared/api";
 import { theme } from "@/shared/lib";
 import { Loading } from "@/shared/ui";
+import dayjs from "dayjs";
+import { useEffect, useRef } from "react";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 import { useGetSchedule } from "../model/use-get-schedule";
 
-const renderItem: ListRenderItem<Partial<RaceDTO>> = ({ item }) => (
-  <View style={styles.card}>
-    <View style={{ maxWidth: "75%" }}>
-      <Text style={styles.title} numberOfLines={1}>
-        {item.raceName}
-      </Text>
-      <Text style={styles.region}>
-        {item.circuit?.city}, {item.circuit?.country}
-      </Text>
-    </View>
-    <View style={styles.timeBlock}>
-      <Text style={styles.date}>{item.schedule?.race?.date.replace(/-/g, ".")}</Text>
-      <Text style={styles.time}>
-        {new Date(
-          `${item.schedule?.race?.date}T${item.schedule?.race?.time}`,
-        ).toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" })}
-      </Text>
-    </View>
-  </View>
-);
-
 const Schedule = () => {
+  const ref = useRef<FlatList>(null);
   const { schedule, isLoading, error } = useGetSchedule();
+  const nextRace = useNextRace();
+
+  useEffect(() => {
+    if (!ref.current) return;
+    const timeout = setTimeout(() => {
+      ref.current?.scrollToEnd();
+    }, 0);
+
+    return () => clearTimeout(timeout);
+  }, [schedule]);
 
   if (isLoading) {
     return <Loading />;
@@ -40,10 +33,33 @@ const Schedule = () => {
     return <Text>Error: {error.message}</Text>;
   }
 
-  return (
-    <View>
-      <FlatList data={schedule} renderItem={renderItem} />
+  const renderItem: ListRenderItem<Partial<RaceDTO>> = ({ item }) => (
+    <View style={[styles.card, nextRace?.raceId === item.raceId && styles.activeCard]}>
+      <View style={{ maxWidth: "75%" }}>
+        <Text style={styles.title} numberOfLines={1}>
+          {item.raceName}
+        </Text>
+        <Text style={styles.region}>
+          {item.circuit?.city}, {item.circuit?.country}
+        </Text>
+      </View>
+      <View style={styles.timeBlock}>
+        <Text style={styles.date}>
+          {dayjs(`${item.schedule?.race?.date}T${item.schedule?.race?.time}`).format(
+            "DD.MMMM",
+          )}
+        </Text>
+        <Text style={styles.time}>
+          {dayjs(`${item.schedule?.race?.date}T${item.schedule?.race?.time}`).format(
+            "HH:mm",
+          )}
+        </Text>
+      </View>
     </View>
+  );
+
+  return (
+    <FlatList ref={ref} data={schedule} renderItem={renderItem} initialScrollIndex={0} />
   );
 };
 
@@ -62,6 +78,9 @@ const styles = StyleSheet.create({
     borderBottomColor: "#F0F0F0",
     backgroundColor: "#fff",
     justifyContent: "space-between",
+  },
+  activeCard: {
+    backgroundColor: theme.colors.primaryLight,
   },
   title: {
     fontSize: 14,
