@@ -1,7 +1,8 @@
+import { podiumColors } from "@/entities/driver";
 import { DriverChampionshipEntryDTO } from "@/shared/api";
+import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { podiumColors } from "../../../entities/driver/model/podiums-colors";
 import { useGetDriversStanding } from "../model/use-get-drivers-standing";
 
 const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
   number: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#d32f2f",
+    color: theme.colors.primary,
     marginLeft: 8,
   },
 });

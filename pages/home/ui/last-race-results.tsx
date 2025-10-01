@@ -1,7 +1,8 @@
+import { podiumColors } from "@/entities/driver";
 import { RaceResultDTO } from "@/shared/api";
+import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { podiumColors } from "../../../entities/driver/model/podiums-colors";
 import useGetLastRaceResults from "../model/use-get-last-race-results";
 
 const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
@@ -74,7 +75,7 @@ const styles = StyleSheet.create({
   number: {
     fontSize: 16,
     fontWeight: "bold",
-    color: "#d32f2f",
+    color: theme.colors.primary,
     marginLeft: 8,
   },
 });

@@ -1,3 +1,4 @@
+import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
@@ -146,7 +147,7 @@ const styles = StyleSheet.create({
   },
   countdownValue: {
     fontWeight: "700",
-    color: "#d32f2f",
+    color: theme.colors.primary,
   },
   loadingContainer: {
     height: "100%",
