@@ -1,9 +1,9 @@
-import { podiumColors } from "@/entities/driver";
 import { RaceResultDTO } from "@/shared/api";
 import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import useGetLastRaceResults from "../model/use-get-last-race-results";
+import useGetLastRaceResults from "../api/use-get-last-race-results";
+import { podiumColors } from "../config/podiums-colors";
 
 const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
   <View style={styles.row}>

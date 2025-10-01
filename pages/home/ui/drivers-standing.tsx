@@ -1,9 +1,9 @@
-import { podiumColors } from "@/entities/driver";
 import { DriverChampionshipEntryDTO } from "@/shared/api";
 import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { useGetDriversStanding } from "../model/use-get-drivers-standing";
+import { useGetDriversStanding } from "../api/use-get-drivers-standing";
+import { podiumColors } from "../config/podiums-colors";
 
 const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
   <View style={styles.row}>

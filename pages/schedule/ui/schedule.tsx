@@ -5,7 +5,7 @@ import { Loading } from "@/shared/ui";
 import dayjs from "dayjs";
 import { useEffect, useRef } from "react";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { useGetSchedule } from "../model/use-get-schedule";
+import { useGetSchedule } from "../api/use-get-schedule";
 
 const Schedule = () => {
   const ref = useRef<FlatList>(null);
