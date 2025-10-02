@@ -1,7 +1,7 @@
 import { useNextRace } from "@/entities/race/model/store";
 import { RaceDTO } from "@/shared/api";
-import { theme } from "@/shared/lib";
 import { Loading } from "@/shared/ui";
+import { useTheme } from "@/shared/ui/theme/theme-provider";
 import dayjs from "dayjs";
 import { useEffect, useRef } from "react";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
@@ -9,6 +9,7 @@ import { useGetSchedule } from "../api/use-get-schedule";
 
 const Schedule = () => {
   const ref = useRef<FlatList>(null);
+  const { colors } = useTheme();
   const { schedule, isLoading, error } = useGetSchedule();
   const nextRace = useNextRace();
 
@@ -34,22 +35,32 @@ const Schedule = () => {
   }
 
   const renderItem: ListRenderItem<Partial<RaceDTO>> = ({ item }) => (
-    <View style={[styles.card, nextRace?.raceId === item.raceId && styles.activeCard]}>
+    <View
+      style={[
+        styles.card,
+        {
+          backgroundColor: colors.surface,
+          borderBottomColor: colors.backgroundSecondary,
+        },
+        nextRace?.raceId === item.raceId && {
+          backgroundColor: colors.highlight,
+        },
+      ]}>
       <View style={{ maxWidth: "75%" }}>
-        <Text style={styles.title} numberOfLines={1}>
+        <Text style={[styles.title, { color: colors.text }]} numberOfLines={1}>
           {item.raceName}
         </Text>
-        <Text style={styles.region}>
+        <Text style={[styles.region, { color: colors.textSecondary }]}>
           {item.circuit?.city}, {item.circuit?.country}
         </Text>
       </View>
       <View style={styles.timeBlock}>
-        <Text style={styles.date}>
+        <Text style={[styles.date, { color: colors.textSecondary }]}>
           {dayjs(`${item.schedule?.race?.date}T${item.schedule?.race?.time}`).format(
-            "DD.MMMM",
+            "D MMMM",
           )}
         </Text>
-        <Text style={styles.time}>
+        <Text style={[styles.time, { color: colors.text }]}>
           {dayjs(`${item.schedule?.race?.date}T${item.schedule?.race?.time}`).format(
             "HH:mm",
           )}
@@ -75,21 +86,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderBottomWidth: 1,
-    borderBottomColor: "#F0F0F0",
-    backgroundColor: "#fff",
     justifyContent: "space-between",
-  },
-  activeCard: {
-    backgroundColor: theme.colors.primaryLight,
   },
   title: {
     fontSize: 14,
     fontWeight: "700",
-    color: "#232323",
   },
   region: {
     fontSize: 12,
-    color: "#717171",
     marginTop: 1,
   },
   timeBlock: {
@@ -97,11 +101,9 @@ const styles = StyleSheet.create({
   },
   date: {
     fontSize: 13,
-    color: "#333",
   },
   time: {
     fontSize: 13,
-    color: theme.colors.primary,
     fontWeight: "600",
   },
 });

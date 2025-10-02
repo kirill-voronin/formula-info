@@ -1,28 +1,12 @@
 import { DriverChampionshipEntryDTO } from "@/shared/api";
-import { theme } from "@/shared/lib";
 import { Card, Loading } from "@/shared/ui";
+import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 import { useGetDriversStanding } from "../api/use-get-drivers-standing";
 import { podiumColors } from "../config/podiums-colors";
 
-const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
-  <View style={styles.row}>
-    <Text
-      style={[
-        styles.position,
-        { color: podiumColors[item.position as keyof typeof podiumColors] },
-      ]}>
-      {item.position}.
-    </Text>
-    <Text style={styles.name}>
-      {item.driver?.name?.split("")[0]}. {item.driver?.surname}
-    </Text>
-    <Text style={styles.team}>{item.team?.teamName}</Text>
-    <Text style={styles.number}>{item.points}</Text>
-  </View>
-);
-
 export const DriversStanding = () => {
+  const { colors } = useTheme();
   const { driversStanding, isLoading, error } = useGetDriversStanding();
 
   const leaders = driversStanding.slice(0, 3);
@@ -34,6 +18,25 @@ export const DriversStanding = () => {
   if (error) {
     return <Text>Error: {error.message}</Text>;
   }
+
+  const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
+    <View style={styles.row}>
+      <Text
+        style={[
+          styles.position,
+          { color: podiumColors[item.position as keyof typeof podiumColors] },
+        ]}>
+        {item.position}.
+      </Text>
+      <Text style={[styles.name, { color: colors.text }]}>
+        {item.driver?.name?.split("")[0]}. {item.driver?.surname}
+      </Text>
+      <Text style={[styles.team, { color: colors.textSecondary }]}>
+        {item.team?.teamName}
+      </Text>
+      <Text style={[styles.number, { color: colors.primary }]}>{item.points}</Text>
+    </View>
+  );
 
   return (
     <Card title="Drivers Standing">
@@ -52,12 +55,10 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
     width: 24,
-    color: "#1976d2",
   },
   name: {
     flex: 1,
     fontSize: 16,
-    color: "#333",
   },
   team: {
     fontSize: 12,
@@ -66,7 +67,7 @@ const styles = StyleSheet.create({
   number: {
     fontSize: 16,
     fontWeight: "bold",
-    color: theme.colors.primary,
+    color: "#333",
     marginLeft: 8,
   },
 });

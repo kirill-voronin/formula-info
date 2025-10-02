@@ -1,6 +1,5 @@
 import { useGetNextRace } from "@/entities/race";
-import { theme } from "@/shared/lib";
-import { Card, Loading } from "@/shared/ui";
+import { Card, Loading, useTheme } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React, { useEffect, useState } from "react";
@@ -26,7 +25,7 @@ function formatCountdown(ms: number) {
 
 export default function NextRaceCard() {
   const { race, schedule, circuit, isLoading } = useGetNextRace();
-
+  const { colors } = useTheme();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
   useEffect(() => {
@@ -61,14 +60,16 @@ export default function NextRaceCard() {
 
   return (
     <Card title={race?.raceName}>
-      <Text style={styles.location}>
+      <Text style={[styles.location, { color: colors.textSecondary }]}>
         {circuit?.city}, {circuit?.country}
       </Text>
 
       {schedule?.sprintQualy && schedule?.sprintQualy.date && (
         <View style={styles.row}>
-          <Text style={styles.label}>Sprint Qualifying:</Text>
-          <Text style={styles.value}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>
+            Sprint Qualifying:
+          </Text>
+          <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.sprintQualy.date, schedule.sprintQualy.time)}
           </Text>
         </View>
@@ -76,8 +77,10 @@ export default function NextRaceCard() {
 
       {schedule?.sprintRace && schedule?.sprintRace.date && (
         <View style={styles.row}>
-          <Text style={styles.label}>Sprint Race:</Text>
-          <Text style={styles.value}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>
+            Sprint Race:
+          </Text>
+          <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.sprintRace.date, schedule.sprintRace.time)}
           </Text>
         </View>
@@ -85,8 +88,8 @@ export default function NextRaceCard() {
 
       {schedule?.qualy && (
         <View style={styles.row}>
-          <Text style={styles.label}>Qualifying:</Text>
-          <Text style={styles.value}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>Qualifying:</Text>
+          <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.qualy.date, schedule.qualy.time)}
           </Text>
         </View>
@@ -94,17 +97,22 @@ export default function NextRaceCard() {
 
       {schedule?.race && (
         <View style={styles.row}>
-          <Text style={styles.label}>Race:</Text>
-          <Text style={styles.value}>
+          <Text style={[styles.label, { color: colors.textSecondary }]}>Race:</Text>
+          <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.race.date, schedule.race.time)}
           </Text>
         </View>
       )}
 
       {timeLeft && (
-        <View style={[styles.row, styles.countdownRow]}>
-          <Text style={styles.countdownLabel}>Time to race:</Text>
-          <Text style={styles.countdownValue}>{formatCountdown(timeLeft)}</Text>
+        <View
+          style={[styles.row, styles.countdownRow, { borderTopColor: colors.outline }]}>
+          <Text style={[styles.countdownLabel, { color: colors.primary }]}>
+            Time to race:
+          </Text>
+          <Text style={[styles.countdownValue, { color: colors.primary }]}>
+            {formatCountdown(timeLeft)}
+          </Text>
         </View>
       )}
     </Card>
@@ -120,7 +128,6 @@ const styles = StyleSheet.create({
   },
   location: {
     fontSize: 14,
-    color: "#555",
     marginBottom: 12,
   },
   row: {
@@ -129,25 +136,18 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   label: {
-    color: "#888",
     fontWeight: "600",
-  },
-  value: {
-    color: "#111",
   },
   countdownRow: {
     marginTop: 12,
     borderTopWidth: 1,
-    borderTopColor: "#eee",
     paddingTop: 10,
   },
   countdownLabel: {
     fontWeight: "700",
-    color: "#333",
   },
   countdownValue: {
     fontWeight: "700",
-    color: theme.colors.primary,
   },
   loadingContainer: {
     height: "100%",

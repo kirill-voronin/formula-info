@@ -1,9 +1,15 @@
+import { ApiProvider } from "@/shared/api";
+import { ThemeProvider } from "@/shared/ui";
 import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return (
-    <Stack>
-      <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-    </Stack>
+    <ApiProvider>
+      <ThemeProvider>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+        </Stack>
+      </ThemeProvider>
+    </ApiProvider>
   );
 }
