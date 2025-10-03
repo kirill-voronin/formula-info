@@ -1,8 +1,10 @@
 import React from "react";
 import { StyleSheet, Text } from "react-native";
+import { useTheme } from "../theme/theme-provider";
 
 export default function Loading() {
-  return <Text style={styles.text}>Loading...</Text>;
+  const { colors } = useTheme();
+  return <Text style={[styles.text, { color: colors.text }]}>Loading...</Text>;
 }
 
 const styles = StyleSheet.create({

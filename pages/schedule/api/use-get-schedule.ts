@@ -1,5 +1,7 @@
+import { scheduleRaceNotifications } from "@/entities/race";
 import { api, RaceDTO } from "@/shared/api";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
 
 interface ScheduleResponse {
   api: string;
@@ -21,6 +23,12 @@ export const useGetSchedule = () => {
     queryKey: ["schedule"],
     queryFn: fetchSchedule,
   });
+
+  useEffect(() => {
+    if (data?.races && data.races.length > 0) {
+      scheduleRaceNotifications(data.races);
+    }
+  }, [data?.races]);
 
   return {
     schedule: data?.races ?? [],
