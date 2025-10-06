@@ -36,9 +36,7 @@ export const usePushNotification = () => {
     );
 
     const responseListener = Notifications.addNotificationResponseReceivedListener(
-      (response) => {
-        console.log(response);
-      },
+      (response) => {},
     );
 
     return () => {
@@ -112,7 +110,6 @@ async function registerForPushNotificationsAsync() {
           projectId,
         })
       ).data;
-      console.log(token);
     } catch (e) {
       token = `${e}`;
     }

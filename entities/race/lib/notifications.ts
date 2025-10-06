@@ -5,7 +5,6 @@ import * as Notifications from "expo-notifications";
 
 export async function getAllScheduledNotifications() {
   const scheduledNotifications = await Notifications.getAllScheduledNotificationsAsync();
-  console.log("📋 Запланированные уведомления:", scheduledNotifications);
   return scheduledNotifications;
 }
 
