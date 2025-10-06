@@ -1,50 +1,92 @@
-# Welcome to your Expo app 👋
+# 🏎️ Formula Info
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Мобильное приложение для поклонников Формулы 1, предоставляющее актуальную информацию о гонках, результатах и расписании сезона.
 
-## Get started
+## 📱 О приложении
 
-1. Install dependencies
+Formula Info — это React Native приложение, построенное на Expo, которое позволяет пользователям:
+
+- 📅 **Просматривать расписание гонок** — полный календарь текущего сезона F1
+- 🏁 **Отслеживать результаты** — итоги последних гонок и текущие позиции гонщиков
+- 🏆 **Следить за чемпионатом** — турнирная таблица пилотов и команд
+- ⏰ **Получать уведомления** — push-уведомления за час до начала гонок, квалификации и спринтов
+- 🎯 **Быстрый доступ к следующей гонке** — информация о ближайшей гонке с обратным отсчетом
+
+## 🛠 Технологии
+
+- **React Native** с **Expo SDK 54**
+- **TypeScript** для типобезопасности
+- **Expo Router** для навигации
+- **React Query** для управления состоянием и кэширования API
+- **Zustand** для глобального состояния
+- **Expo Notifications** для push-уведомлений
+- **Day.js** для работы с датами
+- **Axios** для HTTP-запросов
+
+## 🚀 Запуск проекта
+
+### Предварительные требования
+
+- Node.js 18+
+- npm или yarn
+- Expo CLI
+- iOS Simulator (для macOS) или Android Studio (для тестирования на Android)
+
+### Установка и запуск
+
+1. **Установите зависимости:**
 
    ```bash
    npm install
    ```
 
-2. Start the app
+2. **Запустите приложение:**
 
    ```bash
+   npm run dev
+   # или
    npx expo start
    ```
 
-In the output, you'll find options to open the app in a
+3. **Выберите платформу для запуска:**
+   - **iOS Simulator:** Нажмите `i` в терминале
+   - **Android Emulator:** Нажмите `a` в терминале
+   - **Expo Go:** Отсканируйте QR-код приложением Expo Go на телефоне
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+### Дополнительные команды
 
 ```bash
-npm run reset-project
+# Запуск на конкретной платформе
+npm run ios      # Запуск на iOS
+npm run android  # Запуск на Android
+npm run web      # Запуск в браузере
+
+# Линтинг кода
+npm run lint
+
+# Анализ производительности
+npm run steiger
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+## 🔧 Основные функции
 
-## Learn more
+### 📊 API интеграция
 
-To learn more about developing your project with Expo, look at the following resources:
+Приложение использует внешний API для получения актуальных данных о Формуле 1:
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+- Расписание гонок текущего сезона
+- Результаты последних гонок
+- Турнирная таблица пилотов
 
-## Join the community
+### 🔔 Система уведомлений
 
-Join our community of developers creating universal apps.
+Автоматические push-уведомления:
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- За час до начала квалификации
+- За час до спринт-квалификации
+- За час до основной гонки
+- За час до спринт-гонки
+
+### 🎨 Адаптивная тема
+
+Поддержка светлой и темной темы с автоматическим переключением в зависимости от системных настроек.
