@@ -1,18 +1,17 @@
+import { useLastRace } from "@/entities/race";
 import { RaceResultDTO } from "@/shared/api";
-import { Card, Loading } from "@/shared/ui";
+import { Card } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import useGetLastRaceResults from "../api/use-get-last-race-results";
 import { podiumColors } from "../config/podiums-colors";
 
 const LastRaceResults = () => {
-  const { results, circuit, isLoading } = useGetLastRaceResults();
+  const lastRace = useLastRace();
+  const results = lastRace?.results ?? [];
+  const circuit = lastRace?.circuit;
+
   const leaders = results.slice(0, 3);
   const { colors } = useTheme();
-
-  if (isLoading) {
-    return <Loading />;
-  }
 
   if (!results || results.length === 0) {
     return <Text>No results found</Text>;

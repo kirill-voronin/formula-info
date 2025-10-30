@@ -1,5 +1,7 @@
 import { api, RaceDTO } from "@/shared/api";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useSetLastRace } from "../model/store";
 
 interface LastRaceResultsResponse {
   api: string;
@@ -12,6 +14,8 @@ interface LastRaceResultsResponse {
 }
 
 const useGetLastRaceResults = () => {
+  const setLastRace = useSetLastRace();
+
   const fetchLastRaceResults = async (): Promise<LastRaceResultsResponse> => {
     const response = await api.get("/current/last/race");
     return response.data;
@@ -22,9 +26,13 @@ const useGetLastRaceResults = () => {
     queryFn: fetchLastRaceResults,
   });
 
+  useEffect(() => {
+    if (!data?.races) return;
+    setLastRace(data.races);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return {
-    results: data?.races.results ?? [],
-    circuit: data?.races.circuit ?? {},
     isLoading,
     error,
   };

@@ -1,5 +1,5 @@
-import { useGetNextRace } from "@/entities/race";
-import { Card, Loading, useTheme } from "@/shared/ui";
+import { useNextRace } from "@/entities/race";
+import { Card, useTheme } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React, { useEffect, useState } from "react";
@@ -24,7 +24,10 @@ function formatCountdown(ms: number) {
 }
 
 export default function NextRaceCard() {
-  const { race, schedule, circuit, isLoading } = useGetNextRace();
+  const race = useNextRace();
+  const schedule = race?.schedule;
+  const circuit = race?.circuit;
+
   const { colors } = useTheme();
   const [timeLeft, setTimeLeft] = useState<number | null>(null);
 
@@ -49,14 +52,6 @@ export default function NextRaceCard() {
       setTimeLeft(raceDateTime.diff(now));
     }
   }, [schedule?.race?.date, schedule?.race?.time]);
-
-  if (isLoading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <Loading />
-      </View>
-    );
-  }
 
   return (
     <Card title={race?.raceName}>

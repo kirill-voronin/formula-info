@@ -1,23 +1,15 @@
+import { useDriverStanding } from "@/entities/standing";
 import { DriverChampionshipEntryDTO } from "@/shared/api";
-import { Card, Loading } from "@/shared/ui";
+import { Card } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { useGetDriversStanding } from "../api/use-get-drivers-standing";
 import { podiumColors } from "../config/podiums-colors";
 
 export const DriversStanding = () => {
   const { colors } = useTheme();
-  const { driversStanding, isLoading, error } = useGetDriversStanding();
+  const driversStanding = useDriverStanding();
 
-  const leaders = driversStanding.slice(0, 3);
-
-  if (isLoading) {
-    return <Loading />;
-  }
-
-  if (error) {
-    return <Text>Error: {error.message}</Text>;
-  }
+  const leaders = driversStanding?.slice(0, 3);
 
   const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
     <View style={styles.row}>

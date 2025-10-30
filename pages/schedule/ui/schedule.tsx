@@ -23,7 +23,11 @@ const Schedule = () => {
   }, [schedule]);
 
   if (isLoading) {
-    return <Loading />;
+    return (
+      <View style={styles.loading}>
+        <Loading />
+      </View>
+    );
   }
 
   if (!schedule) {
@@ -105,5 +109,13 @@ const styles = StyleSheet.create({
   time: {
     fontSize: 13,
     fontWeight: "600",
+  },
+  loading: {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    height: "100%",
+    left: "-5%",
+    top: "-5%",
   },
 });

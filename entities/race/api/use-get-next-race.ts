@@ -34,9 +34,6 @@ const useGetNextRace = () => {
   }, [data]);
 
   return {
-    race: data?.race[0],
-    schedule: data?.race[0].schedule,
-    circuit: data?.race[0].circuit,
     isLoading,
     error,
   };

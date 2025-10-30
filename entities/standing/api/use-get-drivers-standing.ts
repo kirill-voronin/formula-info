@@ -1,5 +1,7 @@
 import { api, DriverChampionshipEntryDTO } from "@/shared/api";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect } from "react";
+import { useSetDriverStanding } from "../model/store";
 
 interface DriversChampionshipResponse {
   api: string;
@@ -13,6 +15,8 @@ interface DriversChampionshipResponse {
 }
 
 export const useGetDriversStanding = () => {
+  const setDriverStanding = useSetDriverStanding();
+
   const fetchDriversStanding = async (): Promise<DriversChampionshipResponse> => {
     const response = await api.get("/current/drivers-championship");
     return response.data;
@@ -22,8 +26,14 @@ export const useGetDriversStanding = () => {
     queryKey: ["driversStanding"],
     queryFn: fetchDriversStanding,
   });
+
+  useEffect(() => {
+    if (!data) return;
+    setDriverStanding(data.drivers_championship ?? []);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data]);
+
   return {
-    driversStanding: data?.drivers_championship ?? [],
     isLoading,
     error,
   };
