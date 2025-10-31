@@ -1,6 +1,6 @@
 import { useNextRace } from "@/entities/race/model/store";
 import { RaceDTO } from "@/shared/api";
-import { Loading } from "@/shared/ui";
+import { Flag, Loading, TEXT_SIZES } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import dayjs from "dayjs";
 import { useEffect, useRef } from "react";
@@ -50,13 +50,16 @@ const Schedule = () => {
           backgroundColor: colors.highlight,
         },
       ]}>
-      <View style={{ maxWidth: "75%" }}>
-        <Text style={[styles.title, { color: colors.text }]} numberOfLines={1}>
-          {item.raceName}
-        </Text>
-        <Text style={[styles.region, { color: colors.textSecondary }]}>
-          {item.circuit?.city}, {item.circuit?.country}
-        </Text>
+      <View style={styles.titleContainer}>
+        <Flag code={item.circuit?.country || ""} />
+        <View style={styles.titleTextContainer}>
+          <Text style={[styles.title, { color: colors.text }]} numberOfLines={1}>
+            {item.circuit?.country}, {item.circuit?.city}
+          </Text>
+          <Text style={[styles.circuitName, { color: colors.textSecondary }]}>
+            {item.circuit?.circuitName}
+          </Text>
+        </View>
       </View>
       <View style={styles.timeBlock}>
         <Text style={[styles.date, { color: colors.textSecondary }]}>
@@ -92,22 +95,33 @@ const styles = StyleSheet.create({
     borderBottomWidth: 1,
     justifyContent: "space-between",
   },
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    maxWidth: "75%",
+  },
+  titleTextContainer: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+    gap: 2,
+  },
   title: {
-    fontSize: 14,
+    fontSize: TEXT_SIZES.regular,
     fontWeight: "700",
   },
-  region: {
-    fontSize: 12,
+  circuitName: {
+    fontSize: TEXT_SIZES.secondary,
     marginTop: 1,
   },
   timeBlock: {
     alignItems: "flex-end",
   },
   date: {
-    fontSize: 13,
+    fontSize: TEXT_SIZES.secondary,
   },
   time: {
-    fontSize: 13,
+    fontSize: TEXT_SIZES.secondary,
     fontWeight: "600",
   },
   loading: {

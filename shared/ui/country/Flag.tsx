@@ -27,6 +27,6 @@ export default Flag;
 const styles = StyleSheet.create({
   placeholder: {
     backgroundColor: "#e0e0e0",
-    borderRadius: 2,
+    borderRadius: 20,
   },
 });
