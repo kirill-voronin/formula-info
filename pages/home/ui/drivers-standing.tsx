@@ -1,9 +1,8 @@
 import { useDriverStanding } from "@/entities/standing";
 import { DriverChampionshipEntryDTO } from "@/shared/api";
-import { Card } from "@/shared/ui";
+import { Card, TEXT_SIZES } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { podiumColors } from "../config/podiums-colors";
 
 export const DriversStanding = () => {
   const { colors } = useTheme();
@@ -13,13 +12,9 @@ export const DriversStanding = () => {
 
   const renderItem: ListRenderItem<Partial<DriverChampionshipEntryDTO>> = ({ item }) => (
     <View style={styles.row}>
-      <Text
-        style={[
-          styles.position,
-          { color: podiumColors[item.position as keyof typeof podiumColors] },
-        ]}>
-        {item.position}.
-      </Text>
+      <View style={[styles.positionCircle, { backgroundColor: colors.primary }]}>
+        <Text style={styles.positionText}>{item.position}</Text>
+      </View>
       <Text style={[styles.name, { color: colors.text }]}>
         {item.driver?.name?.split("")[0]}. {item.driver?.surname}
       </Text>
@@ -43,23 +38,28 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: 6,
   },
-  position: {
-    fontSize: 16,
+  positionCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+  },
+  positionText: {
+    fontSize: TEXT_SIZES.secondary,
     fontWeight: "bold",
-    width: 24,
   },
   name: {
     flex: 1,
-    fontSize: 16,
+    fontSize: TEXT_SIZES.regular,
   },
   team: {
-    fontSize: 12,
-    color: "#555",
+    fontSize: TEXT_SIZES.secondary,
   },
   number: {
-    fontSize: 16,
+    fontSize: TEXT_SIZES.regular,
     fontWeight: "bold",
-    color: "#333",
     marginLeft: 8,
   },
 });
