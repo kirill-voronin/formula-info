@@ -3,15 +3,22 @@ import { StyleSheet, Text, View } from "react-native";
 import { useTheme } from "../";
 
 interface CardProps extends PropsWithChildren {
-  title?: string;
+  title?: string | React.ReactNode;
 }
 
 export default function NextRaceCard({ title, children }: CardProps) {
   const { colors } = useTheme();
 
+  const renderTitle = () => {
+    if (typeof title === "string") {
+      return <Text style={[styles.title, { color: colors.onSurface }]}>{title}</Text>;
+    }
+    return title;
+  };
+
   return (
     <View style={[styles.card, { backgroundColor: colors.surface }]}>
-      {title && <Text style={[styles.title, { color: colors.onSurface }]}>{title}</Text>}
+      {title && renderTitle()}
       {children}
     </View>
   );

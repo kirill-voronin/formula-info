@@ -1,5 +1,5 @@
 import { useNextRace } from "@/entities/race";
-import { Card, useTheme } from "@/shared/ui";
+import { Card, Flag, TEXT_SIZES, useTheme } from "@/shared/ui";
 import dayjs from "dayjs";
 import duration from "dayjs/plugin/duration";
 import React, { useEffect, useState } from "react";
@@ -54,9 +54,17 @@ export default function NextRaceCard() {
   }, [schedule?.race?.date, schedule?.race?.time]);
 
   return (
-    <Card title={race?.raceName}>
+    <Card
+      title={
+        <View style={styles.titleContainer}>
+          <Flag code={circuit?.country || ""} />
+          <Text style={[styles.raceName, { color: colors.text }]}>
+            {circuit?.country}, {circuit?.city}
+          </Text>
+        </View>
+      }>
       <Text style={[styles.location, { color: colors.textSecondary }]}>
-        {circuit?.city}, {circuit?.country}
+        {circuit?.circuitName}
       </Text>
 
       {schedule?.sprintQualy && schedule?.sprintQualy.date && (
@@ -115,15 +123,21 @@ export default function NextRaceCard() {
 }
 
 const styles = StyleSheet.create({
+  titleContainer: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
   raceName: {
-    fontSize: 18,
+    fontSize: TEXT_SIZES.header,
     fontWeight: "bold",
     color: "#222",
     marginBottom: 6,
   },
   location: {
-    fontSize: 14,
-    marginBottom: 12,
+    fontSize: TEXT_SIZES.regular,
+    marginBottom: 16,
+    marginTop: 8,
   },
   row: {
     flexDirection: "row",
