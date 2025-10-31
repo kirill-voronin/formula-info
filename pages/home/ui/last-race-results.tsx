@@ -1,9 +1,8 @@
 import { useLastRace } from "@/entities/race";
 import { RaceResultDTO } from "@/shared/api";
-import { Card } from "@/shared/ui";
+import { Card, TEXT_SIZES } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
-import { podiumColors } from "../config/podiums-colors";
 
 const LastRaceResults = () => {
   const lastRace = useLastRace();
@@ -19,22 +18,13 @@ const LastRaceResults = () => {
 
   const renderItem: ListRenderItem<Partial<RaceResultDTO>> = ({ item }) => (
     <View style={styles.row}>
-      <Text
-        style={[
-          styles.position,
-          { color: podiumColors[item.position as keyof typeof podiumColors] },
-        ]}>
-        {item.position}.
-      </Text>
+      <View style={[styles.positionCircle, { backgroundColor: colors.primary }]}>
+        <Text style={styles.positionText}>{item.position}</Text>
+      </View>
       <Text style={[styles.name, { color: colors.text }]}>
         {item.driver?.name?.split("")[0]}. {item.driver?.surname}
       </Text>
-      <Text style={[styles.team, { color: colors.textSecondary }]}>
-        {item.team?.teamName}
-      </Text>
-      <Text style={[styles.number, { color: colors.primary }]}>
-        #{item.driver?.number}
-      </Text>
+      <Text style={[styles.time, { color: colors.primary }]}>{item.time}</Text>
     </View>
   );
 
@@ -57,25 +47,31 @@ const styles = StyleSheet.create({
     marginBottom: 6,
   },
   location: {
-    fontSize: 14,
+    fontSize: TEXT_SIZES.regular,
     marginBottom: 12,
   },
-  position: {
-    fontSize: 16,
+  positionCircle: {
+    width: 20,
+    height: 20,
+    borderRadius: 10,
+    justifyContent: "center",
+    alignItems: "center",
+    marginRight: 8,
+  },
+  positionText: {
+    fontSize: TEXT_SIZES.secondary,
     fontWeight: "bold",
-    width: 24,
   },
   name: {
     flex: 1,
-    fontSize: 16,
+    fontSize: TEXT_SIZES.regular,
   },
   team: {
-    fontSize: 12,
+    fontSize: TEXT_SIZES.secondary,
   },
-  number: {
-    fontSize: 16,
+  time: {
+    fontSize: TEXT_SIZES.regular,
     fontWeight: "bold",
-    color: "#333",
     marginLeft: 8,
   },
 });
