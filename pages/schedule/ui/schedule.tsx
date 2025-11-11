@@ -43,11 +43,11 @@ const Schedule = () => {
       style={[
         styles.card,
         {
-          backgroundColor: colors.surface,
-          borderBottomColor: colors.backgroundSecondary,
+          backgroundColor: colors.onBackground,
+          borderBottomColor: colors.secondaryGrey,
         },
         nextRace?.raceId === item.raceId && {
-          backgroundColor: colors.highlight,
+          backgroundColor: colors.primary + "30",
         },
       ]}>
       <View style={styles.titleContainer}>

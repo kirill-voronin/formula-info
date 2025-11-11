@@ -1,6 +1,6 @@
 import { useDriverStanding } from "@/entities/standing";
 import { DriverChampionshipEntryDTO } from "@/shared/api";
-import { Card, TEXT_SIZES } from "@/shared/ui";
+import { Card, colors, TEXT_SIZES } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 
@@ -49,6 +49,7 @@ const styles = StyleSheet.create({
   positionText: {
     fontSize: TEXT_SIZES.secondary,
     fontWeight: "bold",
+    color: colors.white,
   },
   name: {
     flex: 1,

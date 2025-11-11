@@ -69,9 +69,7 @@ export default function NextRaceCard() {
 
       {schedule?.sprintQualy && schedule?.sprintQualy.date && (
         <View style={styles.row}>
-          <Text style={[styles.label, { color: colors.textSecondary }]}>
-            Sprint Qualifying:
-          </Text>
+          <Text style={[styles.label, { color: colors.text }]}>Sprint Qualifying:</Text>
           <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.sprintQualy.date, schedule.sprintQualy.time)}
           </Text>
@@ -80,9 +78,7 @@ export default function NextRaceCard() {
 
       {schedule?.sprintRace && schedule?.sprintRace.date && (
         <View style={styles.row}>
-          <Text style={[styles.label, { color: colors.textSecondary }]}>
-            Sprint Race:
-          </Text>
+          <Text style={[styles.label, { color: colors.text }]}>Sprint Race:</Text>
           <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.sprintRace.date, schedule.sprintRace.time)}
           </Text>
@@ -91,7 +87,7 @@ export default function NextRaceCard() {
 
       {schedule?.qualy && (
         <View style={styles.row}>
-          <Text style={[styles.label, { color: colors.textSecondary }]}>Qualifying:</Text>
+          <Text style={[styles.label, { color: colors.text }]}>Qualifying:</Text>
           <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.qualy.date, schedule.qualy.time)}
           </Text>
@@ -100,7 +96,7 @@ export default function NextRaceCard() {
 
       {schedule?.race && (
         <View style={styles.row}>
-          <Text style={[styles.label, { color: colors.textSecondary }]}>Race:</Text>
+          <Text style={[styles.label, { color: colors.text }]}>Race:</Text>
           <Text style={{ color: colors.text }}>
             {formatDateTime(schedule.race.date, schedule.race.time)}
           </Text>
@@ -109,7 +105,11 @@ export default function NextRaceCard() {
 
       {timeLeft && (
         <View
-          style={[styles.row, styles.countdownRow, { borderTopColor: colors.outline }]}>
+          style={[
+            styles.row,
+            styles.countdownRow,
+            { borderTopColor: colors.secondaryGrey },
+          ]}>
           <Text style={[styles.countdownLabel, { color: colors.primary }]}>
             Time to race:
           </Text>

@@ -1,6 +1,6 @@
 import { useLastRace } from "@/entities/race";
 import { RaceResultDTO } from "@/shared/api";
-import { Card, TEXT_SIZES } from "@/shared/ui";
+import { Card, colors, TEXT_SIZES } from "@/shared/ui";
 import { useTheme } from "@/shared/ui/theme/theme-provider";
 import { FlatList, ListRenderItem, StyleSheet, Text, View } from "react-native";
 
@@ -60,6 +60,7 @@ const styles = StyleSheet.create({
   },
   positionText: {
     fontSize: TEXT_SIZES.secondary,
+    color: colors.white,
     fontWeight: "bold",
   },
   name: {

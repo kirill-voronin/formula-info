@@ -11,13 +11,13 @@ export default function NextRaceCard({ title, children }: CardProps) {
 
   const renderTitle = () => {
     if (typeof title === "string") {
-      return <Text style={[styles.title, { color: colors.onSurface }]}>{title}</Text>;
+      return <Text style={[styles.title, { color: colors.text }]}>{title}</Text>;
     }
     return title;
   };
 
   return (
-    <View style={[styles.card, { backgroundColor: colors.surface }]}>
+    <View style={[styles.card, { backgroundColor: colors.onBackground }]}>
       {title && renderTitle()}
       {children}
     </View>
